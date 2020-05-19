@@ -1,10 +1,10 @@
 import React from 'react'
-import * as BooksAPI from './BooksAPI'
 import './App.css'
 import { Route } from 'react-router-dom'
 import Dashboard from './Dashboard'
 import Search from './Search'
-import DefaultStoredBooks from './DefaultStoredBooks'
+//import DefaultStoredBooks from './DefaultStoredBooks'
+import * as BooksAPI from './BooksAPI'
 
 class BooksApp extends React.Component {
   state = {
@@ -13,32 +13,29 @@ class BooksApp extends React.Component {
 
   constructor() {
     super()
-
-    // set initial app state with books stored by the user
-    let storedBooks = this.getStoredBooks()
-    this.state.books = storedBooks
+  }
+  componentDidMount() {
+    BooksAPI.getAll()
+      .then((data) => {
+        this.setState(() => ({
+          books: data
+        }))
+      })
   }
 
-  getStoredBooks = () => {
-    // this simulates retrieval of books in one of the three lists; in a real app, 
-    // this would be an api call, not retrieval from local storage
+  saveBook = (book, shelf) => {
+    // save book
+    BooksAPI.update(book, shelf)
+      .then(() => {
+        let currentBooks = this.state.books.filter(b => (b.id !== book.id))
+        const newStoredBooks = [...currentBooks, book]
 
-    // retrieve books from storage location    
-    let storedBooks = localStorage.getItem('storedBooks')
-    return storedBooks ? JSON.parse(storedBooks) : DefaultStoredBooks
-  }
+        // update state
+        this.setState(currentState => ({
+          books: newStoredBooks
+        }))
+      })
 
-  saveBook = (book) => {
-    // this simulates saving of a books in one of the three lists; in a real app, 
-    // this would be an api call, not an update to local storage
-    let currentBooks = this.state.books.filter(b => (b.id !== book.id))
-    const newStoredBooks = [...currentBooks, book]
-    localStorage.setItem('storedBooks', JSON.stringify(newStoredBooks))
-
-    // update state
-    this.setState(currentState => ({
-      books: newStoredBooks
-    }))
   }
 
   render() {
