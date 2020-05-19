@@ -56,6 +56,22 @@ header h1 {
   text-align: center;
 }
 
+.bookshelf-empty {
+  width: 90vw;
+  height: 200px;
+  background-color: #e0e0e0;
+  color: #777;
+  font-size: 1.8em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bookshelf-empty .status-label {
+  color: #444;
+  font-weight: 900;
+}
+
 .open-search {
   position: fixed;
   right: 25px;
