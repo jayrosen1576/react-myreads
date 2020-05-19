@@ -10,22 +10,31 @@ body, .app {
   background: white;
 }
 
-/* main page */
-
-.list-books-title {
+header {
   padding: 10px 0;
-  background: #2e7c31;
+  background: #3F51B5;
   text-align: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
 }
 
-.list-books-title h1 {
+header h1 {
   font-weight: 400;
   margin: 0;
   color: white;
 }
 
-.list-books-content {
+.content {
   padding: 0 0 80px;
+  flex: 1;
+  margin-top: 90px;
+}
+
+
+/* main page */
+.list-books-content {
   flex: 1;
 }
 
@@ -53,25 +62,51 @@ body, .app {
   bottom: 25px;
 }
 
-.open-search button {
+.icon-button {
   display: block;
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: #2e7d32;
-  background-image: url('./icons/add.svg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 28px;
+  background: rgb(190, 190, 190);
+  color: #ffffff;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   font-size: 0;
   outline: 0;
 }
 
-.open-search button:hover {
-  background-color: rgb(0, 102, 0);
+.icon-button:hover {
+  color: #ffffff;
+  background-color: rgb(116, 116, 116);
+  transition: all 0.2s ease-in-out;
 }
 
+.icon-button.default {
+  background: rgb(240, 240, 240);
+  color: #444;
+}
+
+.icon-button.default:hover {
+  color: #ffffff;
+  background-color: rgb(116, 116, 116);
+}
+
+.icon-button.green {
+  background: #43A047;
+  color: #ffffff;
+}
+
+.icon-button.green:hover {
+  background-color: #2E7D32;
+}
+
+.icon-button.blue {
+  background: #29B6F6;
+  color: #ffffff;
+}
+
+.icon-button.blue:hover {
+  background-color: #0288D1;
+}
 
 /* search page */
 
