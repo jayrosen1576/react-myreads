@@ -7,15 +7,15 @@ import Bookshelf from './Bookshelf'
 
 class Dashboard extends Component {
   render() {
-    const { books, onSaveBook } = this.props
+    const { myBooks, booksLoaded, onSaveBook } = this.props
     return (
       <div>
         <div className="list-books">
           <div className="list-books-content">
             <div>
-              <Bookshelf title='Currently Reading' books={books} shelf='currentlyReading' onSaveBook={onSaveBook} />
-              <Bookshelf title='Want to Read' books={books} shelf='wantToRead' onSaveBook={onSaveBook} />
-              <Bookshelf title='Read' books={books} shelf='read' onSaveBook={onSaveBook} />
+              <Bookshelf title='Currently Reading' myBooks={myBooks} booksLoaded={booksLoaded} shelf='currentlyReading' onSaveBook={onSaveBook} />
+              <Bookshelf title='Want to Read' myBooks={myBooks} booksLoaded={booksLoaded} shelf='wantToRead' onSaveBook={onSaveBook} />
+              <Bookshelf title='Read' myBooks={myBooks} booksLoaded={booksLoaded} shelf='read' onSaveBook={onSaveBook} />
             </div>
           </div>
           <div className="open-search">

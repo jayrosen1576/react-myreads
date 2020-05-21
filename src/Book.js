@@ -24,19 +24,27 @@ class Book extends Component {
 
   }
 
+  drag = (e) => {
+    e.dataTransfer.setData("id", this.state.book.id);
+    var img = document.createElement("img");
+    img.src = this.state.book.imageLinks.thumbnail;
+    e.dataTransfer.setDragImage(img, 20, 20);
+  }
+
   render() {
     const { book } = this.state
+    const draggable = this.props.noDrag ? false : true
     return (
       <div className="book">
         <div className="book-top">
-          <div className="book-cover" style={{
+          <div className="book-cover" onDragStart={this.drag} draggable={draggable} style={{
             width: 128,
             height: 193,
             backgroundColor: '#ffffff',
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
             backgroundPosition: 'center center',
-            backgroundImage: `url("${book.imageLinks.thumbnail}")`
+            backgroundImage: `url("${(book.imageLinks && book.imageLinks.thumbnail) || 'http://books.google.com/books/content?id=1yx1tgAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api'}")`
           }}></div>
           <div className="book-shelf-changer">
             <select defaultValue={book.shelf} onChange={this.setBookshelf}>

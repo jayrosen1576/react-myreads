@@ -3,51 +3,57 @@ import './App.css'
 import { Route } from 'react-router-dom'
 import Dashboard from './Dashboard'
 import Search from './Search'
-//import DefaultStoredBooks from './DefaultStoredBooks'
 import * as BooksAPI from './BooksAPI'
 
 class BooksApp extends React.Component {
   state = {
-    books: []
+    myBooks: [],
+    booksLoaded: false
   }
 
-  constructor() {
-    super()
-  }
   componentDidMount() {
     BooksAPI.getAll()
       .then((data) => {
         this.setState(() => ({
-          books: data
+          myBooks: data,
+          booksLoaded: true
         }))
       })
   }
 
   saveBook = (book, shelf) => {
-    // save book
-    BooksAPI.update(book, shelf)
-      .then(() => {
-        let currentBooks = this.state.books.filter(b => (b.id !== book.id))
-        const newStoredBooks = [...currentBooks, book]
+    book.shelf = shelf
+    let currentBooks = this.state.myBooks.filter(b => (b.id !== book.id))
+    let newStoredBooks = []
 
-        // update state
-        this.setState(currentState => ({
-          books: newStoredBooks
-        }))
-      })
+    if (shelf === 'none') {
+      //remove book
+      newStoredBooks = currentBooks
+    } else {
+      newStoredBooks = [...currentBooks, book]
+    }
+
+    // update state
+    this.setState(currentState => ({
+      myBooks: newStoredBooks
+    }), () => {
+      // save book
+      BooksAPI.update(book, shelf)
+    })
 
   }
 
   render() {
+    const { myBooks, booksLoaded } = this.state
     return (
       <div className="app">
         <header><h1>My Reads</h1></header>
         <div className='content'>
           <Route exact path='/' render={() => (
-            <Dashboard books={this.state.books} onSaveBook={this.saveBook} />
+            <Dashboard myBooks={myBooks} booksLoaded={booksLoaded} onSaveBook={this.saveBook} />
           )} />
           <Route exact path='/search' render={() => (
-            <Search books={this.state.books} onSaveBook={this.saveBook} />
+            <Search myBooks={myBooks} onSaveBook={this.saveBook} />
           )} />
         </div>
       </div>

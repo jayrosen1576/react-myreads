@@ -130,7 +130,7 @@ header h1 {
 .search-books-bar {
   position: fixed;
   width: 100%;
-  top: 70px;
+  top: 68px;
   left: 0;
   z-index: 100000;
   display: flex;
@@ -173,6 +173,24 @@ button:active {
 
 .search-books-results {
   padding: 50px 10px 20px;
+}
+
+.search-results-empty {
+  width: 90vw;
+  height: 200px;
+  position: fixed;
+  top: 150px;
+  background-color: #e0e0e0;
+  color: #777;
+  font-size: 1.8em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-results-empty .shelf-label {
+  color: #444;
+  font-weight: 900;
 }
 
 /* books grid */
@@ -248,4 +266,71 @@ button:active {
   padding: 20px 10px 0;
   text-align: center;
   font-size: 0.8em;
+}
+
+/* spinner */
+.spinner-container {
+  position: fixed;
+  top: 250px;
+  width: 100px;
+  height: 100px;
+}
+.spinner,
+.spinner:before,
+.spinner:after {
+  background: #cccccc;
+  -webkit-animation: spin1 1s infinite ease-in-out;
+  animation: spin1 1s infinite ease-in-out;
+  width: 1em;
+  height: 4em;
+}
+.spinner {
+  color: #cccccc;
+  text-indent: -9999em;
+  margin: 30px auto;
+  position: relative;
+  font-size: 11px;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+.spinner:before,
+.spinner:after {
+  position: absolute;
+  top: 0;
+  content: '';
+}
+.spinner:before {
+  left: -1.5em;
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+.spinner:after {
+  left: 1.5em;
+}
+@-webkit-keyframes spin1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0;
+    height: 4em;
+  }
+  40% {
+    box-shadow: 0 -2em;
+    height: 5em;
+  }
+}
+@keyframes spin1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0;
+    height: 4em;
+  }
+  40% {
+    box-shadow: 0 -2em;
+    height: 5em;
+  }
 }
