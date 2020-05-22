@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import MenuBookIcon from '@material-ui/icons/MenuBook'
+import Tooltip from '@material-ui/core/Tooltip'
 
 class Book extends Component {
   state = {
@@ -33,11 +35,17 @@ class Book extends Component {
 
   render() {
     const { book } = this.state
-    const draggable = this.props.noDrag ? false : true
+    const { noDrag } = this.props
+    book.shelf = book.shelf && book.shelf.length > 0 ? book.shelf : 'none'
+    const shelfTitle = book.shelf === 'currentlyReading' ? 'Currently Reading' : (
+      book.shelf === 'wantToRead' ? 'Want to Read' : (
+        book.shelf === 'read' ? 'Read' : ''
+      )
+    )
     return (
       <div className="book">
         <div className="book-top">
-          <div className="book-cover" onDragStart={this.drag} draggable={draggable} style={{
+          <div className="book-cover" onDragStart={this.drag} draggable={noDrag ? false : true} style={{
             width: 128,
             height: 193,
             backgroundColor: '#ffffff',
@@ -55,6 +63,13 @@ class Book extends Component {
               <option value="none">None</option>
             </select>
           </div>
+          {shelfTitle !== '' && (
+            <Tooltip title={shelfTitle}>
+              <div className="book-shelf-indicator">
+                <MenuBookIcon></MenuBookIcon>
+              </div>
+            </Tooltip>
+          )}
         </div>
         <div className="book-title">{book.title}</div>
         <div className="book-authors">{book.authors && book.authors.join(', ')}</div>

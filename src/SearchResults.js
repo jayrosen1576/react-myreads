@@ -8,10 +8,14 @@ class SearchResults extends Component {
 
   render() {
     const { myBooks, books, booksLoaded, searching, query, onSaveBook } = this.props
-    const booksList = books.filter(book => {
+    const booksList = books.map(book => {
       const found = myBooks.filter(b => b.id === book.id)
-      return found.length === 0
+      if (found.length > 0) {
+        book.shelf = found[0].shelf
+      }
+      return book
     })
+
     return (
       <div className="bookshelf">
         <div className="bookshelf-books" onDrop={this.drop} onDragOver={this.allowDrop}>
@@ -27,7 +31,7 @@ class SearchResults extends Component {
               </div>
             )}
             {query.length >= 3 && searching && (
-              <div className='spinner-container'><div className='spinner'></div></div>
+              <div className='spinner-container fixed'><div className='spinner'></div></div>
             )}
           </ol>
         </div>
