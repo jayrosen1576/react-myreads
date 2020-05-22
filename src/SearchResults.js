@@ -21,7 +21,7 @@ class SearchResults extends Component {
         <div className="bookshelf-books" onDrop={this.drop} onDragOver={this.allowDrop}>
           <ol className="books-grid">
             {query.length >= 3 && booksList.map(book => (
-              <li key={book.id}><Book book={book} onSaveBook={onSaveBook} noDrag={true} /></li>
+              <li key={book.id}><Book book={book} onSaveBook={onSaveBook} showIndicator={true} noDrag={true} /></li>
             ))}
             {query.length >= 3 && !searching && booksList.length === 0 && booksLoaded && (
               <div className='search-results-empty'>

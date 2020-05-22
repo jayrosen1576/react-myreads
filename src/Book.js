@@ -35,7 +35,7 @@ class Book extends Component {
 
   render() {
     const { book } = this.state
-    const { noDrag } = this.props
+    const { noDrag, showIndicator } = this.props
     book.shelf = book.shelf && book.shelf.length > 0 ? book.shelf : 'none'
     const shelfTitle = book.shelf === 'currentlyReading' ? 'Currently Reading' : (
       book.shelf === 'wantToRead' ? 'Want to Read' : (
@@ -63,7 +63,7 @@ class Book extends Component {
               <option value="none">None</option>
             </select>
           </div>
-          {shelfTitle !== '' && (
+          {shelfTitle !== '' && showIndicator && (
             <Tooltip title={shelfTitle}>
               <div className="book-shelf-indicator">
                 <MenuBookIcon></MenuBookIcon>
