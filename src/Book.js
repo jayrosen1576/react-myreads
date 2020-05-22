@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import MenuBookIcon from '@material-ui/icons/MenuBook'
-import Tooltip from '@material-ui/core/Tooltip'
+import React, { Component } from 'react';
+import MenuBookIcon from '@material-ui/icons/MenuBook';
+import Tooltip from '@material-ui/core/Tooltip';
 
 class Book extends Component {
   state = {
@@ -8,40 +8,39 @@ class Book extends Component {
   }
 
   constructor(props) {
-    super(props)
-    this.state.book = this.props.book
+    super(props);
+    this.state.book = this.props.book;
   }
 
   setBookshelf = (e) => {
-    const val = e.target.value
-    const { onSaveBook } = this.props
+    const val = e.target.value;
+    const { onSaveBook } = this.props;
 
-    let book = this.state.book
-    book.shelf = val
+    let book = this.state.book;
+    book.shelf = val;
     this.setState((currentState) => ({
       book: book
     }), () => {
-      onSaveBook(this.state.book, val)
-    })
-
+      onSaveBook(this.state.book, val);
+    });
   }
 
   drag = (e) => {
-    e.dataTransfer.setData("id", this.state.book.id);
-    var img = document.createElement("img");
+    e.dataTransfer.setData('id', this.state.book.id);
+    var img = document.createElement('img');
     img.src = this.state.book.imageLinks.thumbnail;
     e.dataTransfer.setDragImage(img, 20, 20);
   }
 
   render() {
-    const { book } = this.state
-    const { noDrag, showIndicator } = this.props
-    book.shelf = book.shelf && book.shelf.length > 0 ? book.shelf : 'none'
+    const { book } = this.state;
+    const { noDrag, showIndicator } = this.props;
+    book.shelf = book.shelf && book.shelf.length > 0 ? book.shelf : 'none';
     const shelfTitle = book.shelf === 'currentlyReading' ? 'Currently Reading' : (
       book.shelf === 'wantToRead' ? 'Want to Read' : (
         book.shelf === 'read' ? 'Read' : ''
       )
-    )
+    );
     return (
       <div className="book">
         <div className="book-top">
@@ -74,8 +73,8 @@ class Book extends Component {
         <div className="book-title">{book.title}</div>
         <div className="book-authors">{book.authors && book.authors.join(', ')}</div>
       </div>
-    )
+    );
   }
 }
 
-export default Book
+export default Book;

@@ -24,14 +24,14 @@ class SearchResults extends Component {
               <li key={book.id}><Book book={book} onSaveBook={onSaveBook} showIndicator={true} noDrag={true} /></li>
             ))}
             {query.length >= 3 && !searching && booksList.length === 0 && booksLoaded && (
-              <div className='search-results-empty'>
+              <div className="search-results-empty">
                 <p>
                   No books found
                 </p>
               </div>
             )}
             {query.length >= 3 && searching && (
-              <div className='spinner-container fixed'><div className='spinner'></div></div>
+              <div className="spinner-container fixed"><div className="spinner"></div></div>
             )}
           </ol>
         </div>

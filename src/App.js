@@ -1,9 +1,9 @@
-import React from 'react'
-import './App.css'
-import { Route } from 'react-router-dom'
-import Dashboard from './Dashboard'
-import Search from './Search'
-import * as BooksAPI from './BooksAPI'
+import React from 'react';
+import './App.css';
+import { Route } from 'react-router-dom';
+import Dashboard from './Dashboard';
+import Search from './Search';
+import * as BooksAPI from './BooksAPI';
 
 class BooksApp extends React.Component {
   state = {
@@ -18,19 +18,19 @@ class BooksApp extends React.Component {
           myBooks: data,
           booksLoaded: true
         }))
-      })
+      });
   }
 
   saveBook = (book, shelf) => {
-    book.shelf = shelf
-    let currentBooks = this.state.myBooks.filter(b => (b.id !== book.id))
-    let newStoredBooks = []
+    book.shelf = shelf;
+    let currentBooks = this.state.myBooks.filter(b => (b.id !== book.id));
+    let newStoredBooks = [];
 
     if (shelf === 'none') {
       //remove book
-      newStoredBooks = currentBooks
+      newStoredBooks = currentBooks;
     } else {
-      newStoredBooks = [...currentBooks, book]
+      newStoredBooks = [...currentBooks, book];
     }
 
     // update state
@@ -38,27 +38,27 @@ class BooksApp extends React.Component {
       myBooks: newStoredBooks
     }), () => {
       // save book
-      BooksAPI.update(book, shelf)
-    })
+      BooksAPI.update(book, shelf);
+    });
 
   }
 
   render() {
-    const { myBooks, booksLoaded } = this.state
+    const { myBooks, booksLoaded } = this.state;
     return (
       <div className="app">
         <header><h1>My Reads</h1></header>
-        <div className='content'>
-          <Route exact path='/' render={() => (
+        <div className="content">
+          <Route exact path="/" render={() => (
             <Dashboard myBooks={myBooks} booksLoaded={booksLoaded} onSaveBook={this.saveBook} />
           )} />
-          <Route exact path='/search' render={() => (
+          <Route exact path="/search" render={() => (
             <Search myBooks={myBooks} onSaveBook={this.saveBook} />
           )} />
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default BooksApp
+export default BooksApp;
